@@ -20,10 +20,10 @@ int main (){
 		if(x==y && y==z){
 			cout << "\n\nESTE TRIANGULO E EQUILATERO!!\n\n";
 		}else{
-			if(x==y && x!=z || x==z && y!=x || y==z && y!=x) {
-				cout << "\n\nESTE TRIANGULO E ISOSCELES!!\n\n";
-			}else{
+			if(x!=y && x!=z && y!=z ) {
 				cout << "\n\nESTE TRIANGULO E ESCALENO!!\n\n";
+			}else{
+				cout << "\n\nESTE TRIANGULO E ISOSCELES!!\n\n";
 			}
 		}
 	}else{

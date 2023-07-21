@@ -35,7 +35,7 @@ int main(){
 				cin >> c->matricula;
 				cout << "\nMedia do aluno: ";
 				cin >> c->media;
-				if(flag){
+				if(cont==0){
 					inicio = c;
 					aux = c;
 					c->endereco = NULL;
@@ -56,16 +56,17 @@ int main(){
 					cin >> matriculado;
 					del = inicio;
 					do{
-						if(matriculado==del->matricula && del->endereco==inicio){
-							del = inicio->endereco;
-							del->endereco = inicio;
-							achou = true;
-							cont--;
-						}else{
-							if(matriculado==del->matricula){
+							if(matriculado==del->matricula && del==inicio){
+								del = inicio->endereco;
+								inicio = del;
 								achou = true;
-								anteriorDel->endereco = del->endereco;
 								cont--;
+							}else{
+								if(matriculado==del->matricula){
+									achou = true;
+									anteriorDel->endereco = del->endereco;
+									cont--;
+								}
 							}
 						}
 						anteriorDel = del;

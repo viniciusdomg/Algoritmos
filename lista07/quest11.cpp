@@ -61,6 +61,9 @@ struct data{
 void Menu();
 void Ordenar(int *valor1, int *valor2, int *valor3, char ord);
 bool Data(int dia, int mes, int ano, int i, bool *v);
+void Custeio(float salario, int qtdF);
+void Multa(int kmA, int kmM);
+float Prova(char matriz[][10], int *acerto);
 
 int main(){
 	
@@ -107,11 +110,67 @@ int main(){
 					cout << "\n\n";
 					system("pause");
 				break;
-			case 3: 
+			case 3: float salario;
+					salario = 10;
+					do{
+						if(salario<10){
+							system("cls");
+							cout << "Digite um salario valido e maior que 10\n\n";						
+						}
+						cout << "Digite o seu salario: ";
+						cin >> salario;
+					}while(salario<10);
+					v1=0;
+					do{	
+						if(v1<0){
+							cout << "\nPor favor digite uma quantidade de filhos valida ";
+						}
+						cout << "\nDigite quantos filhos voce tem? ";
+						cin >> v1;
+					}while(v1<0);
+					Custeio(salario, v1);
+					system("pause");
 				break;
-			case 4:
+			case 4: int kmAvenida, kmMotorista;
+					kmAvenida = 20; 
+					kmMotorista = 0;
+					do{
+						if(kmAvenida<20){
+							system("cls");
+							cout << "Informe uma quilometragem valida e acima de 20km\n\n";
+						}
+						cout << "Qual a quilometragem permitada da avenida? ";
+						cin >> kmAvenida;
+					}while(kmAvenida<20);
+					do{
+						if(kmMotorista<0){
+							system("cls");
+							cout << "Digite uma quilometragem valida!!\n\n";
+						}
+						cout << "Quantos km/h estava o motorista? ";
+						cin >> kmMotorista;
+					}while(kmMotorista<0);
+					Multa(kmAvenida, kmMotorista);
+					system("pause");
 				break;
-			case 5:
+			case 5: char gabarito[2][10];
+					int acerto, l;
+					acerto = 0;
+					float nota;
+					for(i=0;i<2;i++){
+						if(i==1){
+							system("cls");
+							cout << "Agora e o gabarito do aluno!\n";
+						}
+						for(l=0;l<10;l++){
+							cout << "\nQuestao " << l+1 << ": ";
+							cin >> gabarito[i][l];
+						}	
+					}
+					nota = Prova(gabarito, &acerto);
+					cout << "\n\nNota do aluno na prova: " << nota;
+					cout << "\nAcertou " << acerto*10 << "% das questoes!!\n\n";
+					system("pause");
 				break;
 			case 6:
 			default: cout << "\n\nFIM DO PROGRAMA\n";
@@ -168,6 +227,7 @@ void Ordenar(int *valor1, int *valor2, int *valor3, char ord){
 }
 
 bool Data(int dia, int mes, int ano, int i, bool *v){
+	
 	if(mes%2!=0 && mes<13 && mes>0 || mes==8){
 		if(dia>0&&dia<32 && ano>0 && ano<2024){
 			v[i] = true;
@@ -183,4 +243,47 @@ bool Data(int dia, int mes, int ano, int i, bool *v){
 	}else{
 		v[i] = false;
 	}
+}
+
+void Custeio(float salario, int qtdF){
+	if(qtdF==0){
+		cout << "\n\nO seu salario e 100% para custeio proprio!!";
+	}else if(qtdF>5){
+		salario = salario*0.5;
+		salario = salario/qtdF;
+		cout << "\n\nSalario para cada filho = " << salario;		
+	}else{
+		salario = salario*(0.1*qtdF);
+		cout << "\n\nSalario destinado aos filhos = " << salario;
+		salario /= 3;
+		cout << "\nSalario para cada filho = " << salario;
+	}
+	cout << "\n\n";
+}
+
+void Multa(int kmA, int kmM){
+	if(kmM<=kmA){
+		cout << "\n\nO motorista estava em uma velocidade permitida!!";
+	}else if(kmM>kmA && kmM<=kmA+10){
+		cout << "\n\nO motorista estava acima da velocidade, deve pagar 50R$ de multa!!";
+	}else if(kmM>kmA+11 && kmM<=kmA+30){
+		cout << "\n\nO motorista estava acima da velocidade, deve pagar 100R$ de multa!!";
+	}else {
+		cout << "\n\nO motorista estava acima da velocidade, deve pagar 200R$ de multa!!";
+	}
+	cout << "\n\n";	
+}
+
+float Prova(char matriz[][10], int *acerto){
+	int i, l;
+	float nota=0;
+	for(i=0; i<1; i++){
+		for(l=0;l<10;l++){
+			if(matriz[i][l] == matriz[1][l]){
+				*acerto += 1;
+				nota += 1.5;	
+			}		
+		}
+	}
+	return nota;
 }
